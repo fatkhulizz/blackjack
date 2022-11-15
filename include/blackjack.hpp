@@ -4,6 +4,13 @@
 #include "deck.hpp"
 #include "player.hpp"
 
+enum class BlacjackResult
+{
+  player_win,
+  player_lose,
+  tie,
+};
+
 bool askToHit();
 
 void firstDeal(std::vector<Player>& allPlayer, const Deck& cardDeck);
@@ -12,6 +19,6 @@ bool playerTurn(std::vector<Player>& allPlayer,const Deck& cardDeck, IndexDeck& 
 
 bool dealerTurn(Player& dealer, const Deck& cardDeck, IndexDeck& indexDeck, std::vector<Player>& allPlayer);
 
-bool playBlackjack(const Deck& cardDeck);
+BlacjackResult playBlackjack(const Deck& cardDeck);
 
 #endif // !BLACKJACK_H

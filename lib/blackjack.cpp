@@ -90,7 +90,7 @@ bool dealerTurn(Player& dealer, const Deck& cardDeck, IndexDeck& indexDeck, std:
   return false;
 }
 
-bool playBlackjack(const Deck& cardDeck)
+BlacjackResult playBlackjack(const Deck& cardDeck)
 {
   //initialize the player
   //could be change to loop to add more player, but now it set 1 player only
@@ -117,9 +117,11 @@ bool playBlackjack(const Deck& cardDeck)
 
   //player turn to draw new card from deck
   IndexDeck indexDeck{3}; //used as track index of card after first draw (2 for player, 1 for dealer)
-  if(playerTurn(allPlayer, cardDeck, indexDeck, dealer)) return false;
-  if(dealerTurn(dealer, cardDeck, indexDeck, allPlayer)) return true;
-
-  return (allPlayer[0].score > dealer.score);
+  if(playerTurn(allPlayer, cardDeck, indexDeck, dealer)) return BlacjackResult::player_lose;
+  if(dealerTurn(dealer, cardDeck, indexDeck, allPlayer)) return BlacjackResult::player_win;
+  
+  if(allPlayer[0].score > dealer.score) return BlacjackResult::player_win;
+  else if(allPlayer[0].score < dealer.score) return BlacjackResult::player_lose;
+  else return BlacjackResult::tie;
 }
 

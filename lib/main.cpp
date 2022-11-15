@@ -10,16 +10,36 @@ int main()
   // printDeck(cardDeck);
   std::cout << '\n';
 
-  if (playBlackjack(cardDeck)) {
-    std::cout << "\n--------------" << std::endl;
-    std::cout << "player MENANG" << std::endl;
-    std::cout << "--------------\n" << std::endl;
+  switch (playBlackjack(cardDeck)) {
+    case BlacjackResult::player_win:
+      std::cout << "\n--------------" << std::endl;
+      std::cout << "player MENANG" << std::endl;
+      std::cout << "--------------\n" << std::endl;
+      break;
+    case BlacjackResult::player_lose:
+      std::cout << "\n--------------" << std::endl;
+      std::cout << "player KALAH" << std::endl;
+      std::cout << "--------------\n" << std::endl;
+      break;
+    case BlacjackResult::tie:
+      std::cout << "\n--------------" << std::endl;
+      std::cout << "IMBANG" << std::endl;
+      std::cout << "--------------\n" << std::endl;
+      break;
+    default:
+      break;
   }
-  else {
-    std::cout << "\n--------------" << std::endl;
-    std::cout << "Player KALAH" << std::endl;
-    std::cout << "--------------\n" << std::endl;
-  }
+
+  // if (playBlackjack(cardDeck)) {
+  //   std::cout << "\n--------------" << std::endl;
+  //   std::cout << "player MENANG" << std::endl;
+  //   std::cout << "--------------\n" << std::endl;
+  // }
+  // else {
+  //   std::cout << "\n--------------" << std::endl;
+  //   std::cout << "Player KALAH" << std::endl;
+  //   std::cout << "--------------\n" << std::endl;
+  // }
 
   return 0;
 }
