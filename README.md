@@ -8,6 +8,7 @@ For now, its only can be played with 1 player only (player vs dealer), and score
 
 ## What I learn
 
+- class
 - struct
 - dynamic size array (std::vector)
 - working with multiple files
