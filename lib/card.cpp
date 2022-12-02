@@ -1,11 +1,15 @@
-#include "card.hpp"
-
 #include <iostream>
 #include <cassert>
+#include "card.hpp"
 
-void Card::printCard() const
+//START of FORWARD DECLARING CONSTRUCTOR
+Card::Card() = default;
+Card::Card(Rank rank, Suit suit) : m_rank{rank}, m_suit{suit} {}
+//END of FORWARD DECLARING CONSTRUCTOR
+
+void Card::print() const
 {
-  switch (rank) 
+  switch (m_rank) 
   {
     case Rank::rank_2:  std::cout << '2';  break;
     case Rank::rank_3:  std::cout << '3';  break;
@@ -24,7 +28,7 @@ void Card::printCard() const
       std::cout << '?'; 
       break;
   }
-  switch (suit) 
+  switch (m_suit) 
   {
     case Suit::club:  std::cout << 'C'; break;
     case Suit::diamond: std::cout << 'D'; break;
@@ -36,9 +40,9 @@ void Card::printCard() const
   }
 }
 
-int Card::getCardValue() const
+int Card::value() const
 {
-  switch (rank) {
+  switch (m_rank) {
     case Rank::rank_2:  return 2;
     case Rank::rank_3:  return 3;
     case Rank::rank_4:  return 4;
@@ -59,3 +63,4 @@ int Card::getCardValue() const
       return 0;
   }
 }
+

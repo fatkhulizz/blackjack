@@ -1,24 +1,10 @@
-#ifndef BLACKJACK_H
-#define BLACKJACK_H
+#ifndef BLACKJACK_HPP
+#define BLACKJACK_HPP
 
-#include "deck.hpp"
 #include "player.hpp"
 
-enum class BlacjackResult
-{
-  player_win,
-  player_lose,
-  tie,
-};
+int askTotalPlayer();
 
-bool askToHit();
+void playBlackjack(Deck &deck);
 
-void firstDeal(std::vector<Player>& allPlayer, const Deck& cardDeck);
-
-bool playerTurn(std::vector<Player>& allPlayer,const Deck& cardDeck, IndexDeck& indexDeck, Player& dealer); 
-
-bool dealerTurn(Player& dealer, const Deck& cardDeck, IndexDeck& indexDeck, std::vector<Player>& allPlayer);
-
-BlacjackResult playBlackjack(const Deck& cardDeck);
-
-#endif // !BLACKJACK_H
+#endif // !BLACKJACK_HPP

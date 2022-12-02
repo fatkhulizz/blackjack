@@ -1,44 +1,44 @@
 #include "deck.hpp"
-
 #include <algorithm> // for std::shuffle
+#include <cassert>
 #include <ctime> // for std::time
-#include <random> // for std::mt19937
 #include <iostream>
+#include <random> // for std::mt19937
 
-Deck createDeck()
-{
-  //declare Deck array
-  Deck cardDeck{};
-
-  //filling Deck array with all card
+// START of FORWARD DECLARING CONSTRUCTOR
+Deck::Deck() {
   int index{0};
-  for(int iii{0}; iii < static_cast<int>(Suit::max_suits); ++iii)
-    {
-      for(int jjj{0}; jjj < static_cast<int>(Rank::max_ranks); ++jjj)
-        {
-          // std::cout << '#' << index << ' ' << "rank = " << jjj << " suit = " << iii << std::endl;
-          cardDeck.at(index).suit = static_cast<Suit>(iii);
-          cardDeck.at(index).rank = static_cast<Rank>(jjj);
-          ++index;
-        }
-    }
-  return cardDeck;
-}
 
-void printDeck(const Deck& cardDeck)
-{
-  for(const auto& var : cardDeck)
-  {
-    var.printCard();
+  for (int rank{0}; rank < static_cast<int>(Card::Rank::max_ranks); ++rank) {
+    for (int suit{0}; suit < static_cast<int>(Card::Suit::max_suits); ++suit) {
+      m_deck[index] = {static_cast<Card::Rank>(rank),
+                       static_cast<Card::Suit>(suit)};
+      ++index;
+    }
+  }
+}
+// END of FORWARD DECLARING CONSTRUCTOR
+
+void Deck::print() const {
+  for (const auto &var : m_deck) {
+    var.print();
     std::cout << ' ';
   }
   std::cout << '\n';
 }
 
-Deck shuffleDeck(Deck& cardDeck)
-{
-  static std::mt19937 mt{ static_cast<std::mt19937::result_type>(std::time(nullptr)) };
- 
-  std::shuffle(cardDeck.begin(), cardDeck.end(), mt);
-  return cardDeck;
+DeckArray Deck::shuffle() {
+  static std::mt19937 mt{
+      static_cast<std::mt19937::result_type>(std::time(nullptr))};
+
+  std::shuffle(m_deck.begin(), m_deck.end(), mt);
+  //RESET card index
+  m_cardIndex = 0;
+  return m_deck;
+}
+
+const Card& Deck::dealCard() {
+  assert(m_cardIndex < m_deck.size());
+
+  return m_deck[m_cardIndex++];
 }

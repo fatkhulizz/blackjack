@@ -1,18 +1,28 @@
-#ifndef DECK_H
-#define DECK_H
+#ifndef DECK_HPP
+#define DECK_HPP
 
-#include "card.hpp"
 #include "constants.hpp"
-
 #include <array>
+#include "card.hpp"
 
-using Deck = std::array<Card, g_totalCard>;
-using IndexDeck = Deck::size_type;
+using DeckArray = std::array<Card, g_totalCard>;
+using IndexDeck = DeckArray::size_type;
 
-Deck createDeck();
+class Deck{
+private:
+  DeckArray m_deck{};
+  IndexDeck m_cardIndex{0};
 
-void printDeck(const Deck& cardDeck);
+public:
+  //START of FORWARD DECLARING CONSTRUCTOR
+  Deck();
+  //END of FORWARD DECLARING CONSTRUCTOR
 
-Deck shuffleDeck(Deck& cardDeck);
+  void print() const;
+  DeckArray shuffle();
+  const Card& dealCard();
 
-#endif // !DECK_H
+
+};
+
+#endif // !DECK_HPP

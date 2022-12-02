@@ -1,27 +1,52 @@
-#ifndef PLAYER_H
-#define PLAYER_H
-
-#include "card.hpp"
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
 
 #include <string>
 #include <vector>
+#include "deck.hpp"
 
 using Hand = std::vector<Card>;
-using IndexHand = Hand::size_type;
 
-struct Player
-{
-  std::string name{};
-  Hand hand{};
-  int score{};
+class Player{
+public:
+  enum State{
+    firstDraw,
+    secondDraw,
+    blackjack,
+    busted,
+    normal,
+  };
+  enum Result{
+    playing,
+    win,
+    lose,
+  };
+private:
+  std::string m_name{};
+  Hand m_hand{};
+  int m_score{};
+  State m_state{};
 
-  //constructor
-  Player(){};
+public:
+ //CONSTRUCTOR
+  Player(); 
+  Player(std::string name);
+ //END CONSTRUCTOR
+  void drawCard(Deck& deck); //mutate m_hand by adding new card from deck
+  State getState();
+  void printInfo () const; //display all variable member in console
+  Result turn(Deck& deck); //do player turn
+  // Result dealerTurn(Deck& deck); //do dealer turn
 
-  int getTotalValue() const;
-  void printEachCard() const;
-  void printPlayerInfo() const;
-  const std::string askName() const;
+private:
+  void score(); //mutate score
+  void state(); //check state of player
+  void evaluate(); //evalaute score and state
+  bool isDealer() const;
+  bool askToHit(); //ask decision
+  bool dealerHit();
+  void printHand() const; //display card in hand in console
+
 };
 
-#endif // !PLAYER_H
+#endif // !PLAYER_HPP
